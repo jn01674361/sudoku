@@ -22,10 +22,12 @@ public class SudokuGUI extends Frame implements ActionListener{
 
         mainpanel.setSize(1000,1000);  
         mainpanel.setVisible(true);  
+        mainpanel.setBackground(Color.BLACK);
+
         add(mainpanel);
         setSize(1000,1000);  
         setVisible(true);  
-
+        
 
     }
 
@@ -45,6 +47,8 @@ public class SudokuGUI extends Frame implements ActionListener{
         }
         panel.setSize(300,300);  
         panel.setVisible(true);  
+        panel.setBackground(Color.BLACK);
+
 
         return panel;
     }
