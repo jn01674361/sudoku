@@ -3,18 +3,26 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class SudokuGUI extends Frame implements ActionListener{
-    TextField tf;  
-   // private variables
- 
+   public TextField tf = new TextField();
+    // private variables
+    private JPanel mainpanel;
+
+    public void initMainpanel(){
+        this.mainpanel = new JPanel();
+    }
+
    // Constructor to setup the GUI components
    public SudokuGUI() { 
-        JPanel mainpanel = new JPanel();
+        initMainpanel();
+        SudokuPart[][] panelArr = new SudokuPart[3][3];
+
         mainpanel.setLayout(new GridLayout(3, 3, 10, 10));    
         //create components  
         for(int i = 0; i<3; i++){
             for(int j=0; j<3; j++){
-                JPanel part = sudokuPart();
-                mainpanel.add(part);
+                SudokuPart part = new SudokuPart();
+                panelArr[i][j] = part;
+                mainpanel.add(panelArr[i][j].part());
                 // TextField tf = new TextField();
                 // add(tf);
             }
@@ -28,32 +36,31 @@ public class SudokuGUI extends Frame implements ActionListener{
         setSize(1000,1000);  
         setVisible(true);  
         
+        Integer[][] matrix = getMatrix();
+        // for(int i = 0; i<matrix.length;i++){
+        //     for(int j =0 ; j< matrix[0].length; j++){
+        //         System.err.print(matrix[i][j]);
+        //     }
+        // }
 
     }
 
     public void actionPerformed(ActionEvent e){  
-        tf.setText("Welcome");  
-        }
-    public JPanel sudokuPart(){
-        JPanel panel = new JPanel();
-
-        panel.setLayout(new GridLayout(3,3,3,3));
-
-        for(int i = 0; i<3; i++){
-            for(int j=0; j<3; j++){
-                TextField tf = new TextField();
-                panel.add(tf);
-            }
-        }
-        panel.setSize(300,300);  
-        panel.setVisible(true);  
-        panel.setBackground(Color.BLACK);
+        tf.setText("Welcome");
+    }
+    public Integer[][] getMatrix(){
+        Integer[][]mat = new Integer[9][9];
 
 
-        return panel;
+        // how to add stuff to the matrix?
+
+
+        return mat;
     }
    public static void main(String[] args) {
       // Invoke the constructor (to setup the GUI) by allocating an instance
       new SudokuGUI();
+      
+
    }
 }
