@@ -40,11 +40,20 @@ public class SudokuPart{
 
         for(int i = 0; i< this.width; i++){
             for(int j = 0; j< this.height; j++){
-                JTextField jtf = new JTextField("0", 9);
-                JPanel tfPanel = new JPanel();
-                tfPanel.add(jtf);
-
-                addToArray(tfPanel, i, j);
+                JTextPane jtp = new JTextPane();
+                JPanel taPanel = new JPanel();
+                // jtp.setColumns(1);
+                // jtp.setRows(1);
+                // jtp.setWrapStyleWord(true);
+                // jtp.setLineWrap(true);
+                
+                jtp.setPreferredSize(new Dimension(100, 100));
+                jtp.setFont(new Font("Akzidenz Grotesk", Font.PLAIN, 80));
+                taPanel.add(jtp);
+                jtp.setAlignmentX(JTextPane.CENTER_ALIGNMENT);
+                jtp.setAlignmentY(JTextPane.CENTER_ALIGNMENT);
+                taPanel.setBackground(Color.WHITE);
+                addToArray(taPanel, i, j);
                 
                 this.part.add(partArray()[i][j]);
             }
