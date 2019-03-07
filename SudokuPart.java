@@ -42,11 +42,6 @@ public class SudokuPart{
             for(int j = 0; j< this.height; j++){
                 JTextPane jtp = new JTextPane();
                 JPanel taPanel = new JPanel();
-                // jtp.setColumns(1);
-                // jtp.setRows(1);
-                // jtp.setWrapStyleWord(true);
-                // jtp.setLineWrap(true);
-                
                 jtp.setPreferredSize(new Dimension(100, 100));
                 jtp.setFont(new Font("Akzidenz Grotesk", Font.PLAIN, 80));
                 taPanel.add(jtp);
