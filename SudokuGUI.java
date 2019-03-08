@@ -51,10 +51,7 @@ public class SudokuGUI extends Frame implements ActionListener{
 
    // Constructor to setup the GUI components
 
-
-   public SudokuGUI() { 
-
-
+    public void loadBoard(){
         SudokuLoader loader = new SudokuLoader();
         loader.loadSudokuFromTxt();
         loadPanelsFromMatrix(loader.sudokuMatrix());
@@ -62,29 +59,34 @@ public class SudokuGUI extends Frame implements ActionListener{
         
 
         mainpanel.setLayout(new GridLayout(3, 3, 10, 10));    
-        // //create components  
-        // for(int i = 0; i<3; i++){
-        //     for(int j=0; j<3; j++){
-        //         SudokuPart part = new SudokuPart();
-        //         panelArr[i][j] = part;
-        //         mainpanel.add(panelArr[i][j].part());
-        //         // TextField tf = new TextField();
-        //         // add(tf);
-        //     }
-        // }
+
 
         mainpanel.setSize(1000,1000);  
         mainpanel.setVisible(true);  
         mainpanel.setBackground(Color.BLACK);
+    }
+   public SudokuGUI() { 
+
+
+        loadBoard();
 
         JPanel btnPanel = new JPanel();
         
+
+        this.load.setActionCommand("load");
+        this.submit.setActionCommand("submit");
+        this.exit.setActionCommand("exit");                
+        
+        this.load.addActionListener(this);
+        this.submit.addActionListener(this);
+        this.exit.addActionListener(this);
+
         btnPanel.add(this.load);
         btnPanel.add(this.submit);
         btnPanel.add(this.exit);
         
         btnPanel.setLayout(new GridLayout(1,3));
-        btnPanel.setSize(1000,100);
+        btnPanel.setSize(1000,200);
         btnPanel.setVisible(true);
         btnPanel.setBackground(Color.BLACK);
         
@@ -92,24 +94,27 @@ public class SudokuGUI extends Frame implements ActionListener{
 
         add(btnPanel, BorderLayout.PAGE_END);
         add(mainpanel, BorderLayout.CENTER);
-        setSize(1100,1100);  
+        setSize(1200,1000);  
         setVisible(true);  
-        
-        Integer[][] matrix = getMatrix();
 
-        // for(int i = 0; i<matrix.length;i++){
-        //     for(int j =0 ; j< matrix[0].length; j++){
-        //         System.out.println("Values at arr["+i+"]["+j+"] is "+matrix[i][j]);
-        //     }
-        // }
-
-        // System.out.println();
-        // System.out.println("valid? "+validAll());
 
     }
 
     public void actionPerformed(ActionEvent e){  
-        tf.setText("Welcome");
+        if("load".equals(e.getActionCommand())){
+            remove(mainpanel);
+            loadBoard();
+
+            add(mainpanel, BorderLayout.CENTER);
+            revalidate();
+            repaint();
+        }
+        else if("submit".equals(e.getActionCommand())){
+            JOptionPane.showMessageDialog(null, "java is fun");
+        }
+        else if("exit".equals(e.getActionCommand())){
+            System.exit(0);
+        }
     }
     public Integer[][] getMatrix(){
         Integer[][]mat = new Integer[9][9];
