@@ -1,6 +1,7 @@
 import java.awt.*;  
 import java.awt.event.*;  
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class SudokuPart{
 
@@ -30,6 +31,43 @@ public class SudokuPart{
         return text;
     }
 
+    public void setText(int i, int j, String text){
+        JPanel panel = getPart(i, j);
+        //JPanel changedPanel = new JPanel();
+        Component[] components = panel.getComponents();
+        JTextPane pane;
+
+        if(components[0] instanceof JTextPane){
+            pane = (JTextPane)components[0];
+        }
+        else{
+            pane = new JTextPane();
+        }
+        pane.setText(text);
+        panel.add(pane);
+        addToArray(panel, i, j);
+    }
+
+    public void nonEditable(int i, int j, String text){
+        JPanel panel = getPart(i, j);
+        //JPanel changedPanel = new JPanel();
+        Component[] components = panel.getComponents();
+        JTextPane pane;
+
+        if(components[0] instanceof JTextPane){
+            pane = (JTextPane)components[0];
+        }
+        else{
+            pane = new JTextPane();
+        }
+        pane.setText(text);
+        pane.setBackground(Color.GRAY);
+        pane.setEditable(false);
+        panel.add(pane);
+        panel.setBackground(Color.GRAY);
+        addToArray(panel, i, j);
+    }
+
     public JPanel[][] partArray(){
         return this.partArray;
     }
@@ -46,6 +84,21 @@ public class SudokuPart{
     }
     public JPanel getPart(int i, int j){
         return this.partArray[i][j];
+    }
+    public ArrayList<Integer> partAsIntList(){
+        ArrayList<Integer> ints = new ArrayList<Integer>();
+        for(int i=0; i< 3; i++){
+            for(int j =0; j<3;j++){
+                if(getText(i,j).equals("")){
+                    ints.add(0);
+                }
+                else{
+                    ints.add(Integer.parseInt(getText(i,j)));
+                }
+            }
+        }
+        return ints;
+
     }
 
     //get textfield value
