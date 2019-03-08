@@ -6,15 +6,22 @@ public class SudokuGUI extends Frame implements ActionListener{
    public TextField tf = new TextField();
     // private variables
     private JPanel mainpanel;
+    private SudokuPart[][] panelArr = new SudokuPart[3][3];
 
     public void initMainpanel(){
         this.mainpanel = new JPanel();
+    }
+    public SudokuPart[][] panelArr(){
+        return this.panelArr;
+    }
+    public SudokuPart getPanel(int i, int j){
+        return this.panelArr[i][j];
     }
 
    // Constructor to setup the GUI components
    public SudokuGUI() { 
         initMainpanel();
-        SudokuPart[][] panelArr = new SudokuPart[3][3];
+        
 
         mainpanel.setLayout(new GridLayout(3, 3, 10, 10));    
         //create components  
@@ -37,9 +44,10 @@ public class SudokuGUI extends Frame implements ActionListener{
         setVisible(true);  
         
         Integer[][] matrix = getMatrix();
+
         // for(int i = 0; i<matrix.length;i++){
         //     for(int j =0 ; j< matrix[0].length; j++){
-        //         System.err.print(matrix[i][j]);
+        //         System.out.println("Values at arr["+i+"]["+j+"] is "+matrix[i][j]);
         //     }
         // }
 
@@ -50,7 +58,17 @@ public class SudokuGUI extends Frame implements ActionListener{
     }
     public Integer[][] getMatrix(){
         Integer[][]mat = new Integer[9][9];
+        for(int i =0;i<3;i++){
+            for(int j = 0; j<3;j++){
+                for(int k=0; k<3;k++){
+                    for(int l=0;l<3;l++){
 
+                        mat[k+3*i][l+3*j] = Integer.parseInt(getPanel(i,j).getText(k,l));
+
+                    }
+                }
+            }
+        }
 
         // how to add stuff to the matrix?
 

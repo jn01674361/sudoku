@@ -13,6 +13,23 @@ public class SudokuPart{
         return this.part;
     }
 
+    public String getText(int i, int j){
+        JPanel panel = getPart(i, j);
+        Component[] components = panel.getComponents();
+        JTextPane pane;
+
+        if(components[0] instanceof JTextPane){
+            pane = (JTextPane)components[0];
+        }
+        else{
+            pane = new JTextPane();
+        }
+        
+
+        String text = pane.getText();
+        return text;
+    }
+
     public JPanel[][] partArray(){
         return this.partArray;
     }
@@ -26,6 +43,9 @@ public class SudokuPart{
     }
     public void addToArray(JPanel panel, int i, int j){
         this.partArray[i][j] = panel;
+    }
+    public JPanel getPart(int i, int j){
+        return this.partArray[i][j];
     }
 
     //get textfield value
@@ -41,14 +61,17 @@ public class SudokuPart{
         for(int i = 0; i< this.width; i++){
             for(int j = 0; j< this.height; j++){
                 JTextPane jtp = new JTextPane();
-                JPanel taPanel = new JPanel();
+                // jtp.setText(((Integer) i).toString());
+                JPanel tpPanel = new JPanel();
                 jtp.setPreferredSize(new Dimension(100, 100));
                 jtp.setFont(new Font("Akzidenz Grotesk", Font.PLAIN, 80));
-                taPanel.add(jtp);
+                tpPanel.add(jtp);
                 jtp.setAlignmentX(JTextPane.CENTER_ALIGNMENT);
                 jtp.setAlignmentY(JTextPane.CENTER_ALIGNMENT);
-                taPanel.setBackground(Color.WHITE);
-                addToArray(taPanel, i, j);
+                tpPanel.setBackground(Color.WHITE);
+                
+                
+                addToArray(tpPanel, i, j);
                 
                 this.part.add(partArray()[i][j]);
             }
