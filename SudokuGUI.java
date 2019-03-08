@@ -60,9 +60,10 @@ public class SudokuGUI extends Frame implements ActionListener{
         Integer[][]mat = new Integer[9][9];
         for(int i =0;i<3;i++){
             for(int j = 0; j<3;j++){
+                //i,j loop through the 3x3 sudokuboxes in the 3x3 sudokuboard 
                 for(int k=0; k<3;k++){
                     for(int l=0;l<3;l++){
-
+                        //k,l loop through the fields of the 3x3 sudokubox
                         mat[k+3*i][l+3*j] = Integer.parseInt(getPanel(i,j).getText(k,l));
 
                     }
