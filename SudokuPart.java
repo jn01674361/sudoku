@@ -9,7 +9,6 @@ public class SudokuPart{
     private JPanel[][] partArray;
     private int height = 3, width = 3;
 
-
     public JPanel part(){
         return this.part;
     }
@@ -25,7 +24,6 @@ public class SudokuPart{
         else{
             pane = new JTextPane();
         }
-        
 
         String text = pane.getText();
         return text;
@@ -33,7 +31,6 @@ public class SudokuPart{
 
     public void setText(int i, int j, String text){
         JPanel panel = getPart(i, j);
-        //JPanel changedPanel = new JPanel();
         Component[] components = panel.getComponents();
         JTextPane pane;
 
@@ -50,7 +47,6 @@ public class SudokuPart{
 
     public void nonEditable(int i, int j, String text){
         JPanel panel = getPart(i, j);
-        //JPanel changedPanel = new JPanel();
         Component[] components = panel.getComponents();
         JTextPane pane;
 
@@ -100,11 +96,6 @@ public class SudokuPart{
         return ints;
 
     }
-
-    //get textfield value
-
-    //set textfield value
-
     public SudokuPart(){
         initPartArray();
         setPart(new JPanel());
@@ -114,7 +105,6 @@ public class SudokuPart{
         for(int i = 0; i< this.width; i++){
             for(int j = 0; j< this.height; j++){
                 JTextPane jtp = new JTextPane();
-                // jtp.setText(((Integer) i).toString());
                 JPanel tpPanel = new JPanel();
                 jtp.setPreferredSize(new Dimension(100, 100));
                 jtp.setFont(new Font("Akzidenz Grotesk", Font.PLAIN, 80));
@@ -122,10 +112,7 @@ public class SudokuPart{
                 jtp.setAlignmentX(JTextPane.CENTER_ALIGNMENT);
                 jtp.setAlignmentY(JTextPane.CENTER_ALIGNMENT);
                 tpPanel.setBackground(Color.WHITE);
-                
-                
                 addToArray(tpPanel, i, j);
-                
                 this.part.add(partArray()[i][j]);
             }
         }

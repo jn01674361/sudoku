@@ -24,7 +24,6 @@ public class SudokuLoader{
         try{
             Integer[][] mat = new Integer[9][9];
             if(pathToSudoku.equals("")){
-                // File txtFolder = new File("txt");
                 File puzzleFile = new File(puzzleFolder);
                 File[] fileList = puzzleFile.listFiles();
                 Random rand = new Random(); 
@@ -49,17 +48,7 @@ public class SudokuLoader{
                     }
                     k++;
                     
-                }
-
-                // for (int j = 0; j < line.length(); j++){
-                //     char c = line.charAt(j);
-                //     if(c != ' '){
-                //         System.out.print(i);
-                //         System.out.print(j);
-                //         mat[i][j]=Integer.parseInt(String.valueOf(c));
-                //     }
-                // }
-                
+                }     
                 line = br.readLine();
                 i++;
             }

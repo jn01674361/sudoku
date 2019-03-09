@@ -9,7 +9,6 @@ public class SudokuGUI extends Frame implements ActionListener{
    public TextField tf = new TextField();
    public JButton load = new JButton("New puzzle"), submit = new JButton("Submit"), exit = new JButton("Exit");
    
-    // private variables
     private JPanel mainpanel;
     private SudokuPart[][] panelArr = new SudokuPart[3][3];
 
@@ -24,7 +23,6 @@ public class SudokuGUI extends Frame implements ActionListener{
     }
     public SudokuPart addTextToPart(SudokuPart part, int ifield, int jfield, String text, boolean editable){
         
-
         if(part!=null){
             if(!editable){
                 part.nonEditable(ifield, jfield, text);
@@ -44,35 +42,24 @@ public class SudokuGUI extends Frame implements ActionListener{
             part.addToArray(jp, ifield, jfield);
 
         }
-
-        
         return part;
     }
-
-   // Constructor to setup the GUI components
 
     public void loadBoard(){
         SudokuLoader loader = new SudokuLoader();
         loader.loadSudokuFromTxt();
         loadPanelsFromMatrix(loader.sudokuMatrix());
-        // initMainpanel();
-        
-
         mainpanel.setLayout(new GridLayout(3, 3, 10, 10));    
-
-
         mainpanel.setSize(1000,1000);  
         mainpanel.setVisible(true);  
         mainpanel.setBackground(Color.BLACK);
     }
    public SudokuGUI() { 
 
-
         loadBoard();
 
         JPanel btnPanel = new JPanel();
-        
-
+    
         this.load.setActionCommand("load");
         this.submit.setActionCommand("submit");
         this.exit.setActionCommand("exit");                
@@ -96,8 +83,6 @@ public class SudokuGUI extends Frame implements ActionListener{
         add(mainpanel, BorderLayout.CENTER);
         setSize(1200,1000);  
         setVisible(true);  
-
-
     }
 
     public void actionPerformed(ActionEvent e){  
@@ -110,7 +95,16 @@ public class SudokuGUI extends Frame implements ActionListener{
             repaint();
         }
         else if("submit".equals(e.getActionCommand())){
-            JOptionPane.showMessageDialog(null, "java is fun");
+            getMatrix();
+            boolean val = validAll();
+            String result;
+            if(val){
+                result = "Good job! Click \'New Puzzle\' for another Sudoku challenge!";
+            }
+            else{
+                result = "Sorry, that is incorrect.";
+            }
+            JOptionPane.showMessageDialog(null, result);
         }
         else if("exit".equals(e.getActionCommand())){
             System.exit(0);
@@ -134,8 +128,6 @@ public class SudokuGUI extends Frame implements ActionListener{
                 }
             }
         }
-
-        // how to add stuff to the matrix?
         return mat;
     }
 
@@ -149,22 +141,13 @@ public class SudokuGUI extends Frame implements ActionListener{
                     for(int l=0;l<3;l++){
                         //k,l loop through the fields of the 3x3 sudokubox
                         if(mat[k+3*i][l+3*j]==0){
-                            // getPanel(i,j).setText(k,l,"");
                             part = addTextToPart(part, k, l, "", true);
-                            // System.err.println("0");
-                            // setPanelText(i, j, k, l, "");
                         }
                         else{
                             part = addTextToPart(part, k, l, Integer.toString(mat[k+3*i][l+3*j]), false);
-
-                            // setPanelText(i, j, k, l, Integer.toString(mat[k+3*i][l+3*j]));
-                            // getPanel(i,j).setText(k, l, Integer.toString(mat[k+3*i][l+3*j]));
                         }
                         panelArr[i][j] = part;
                         mainpanel.add(panelArr[i][j].part());
-
-                        // mat[k+3*i][l+3*j] = Integer.parseInt(getPanel(i,j).getText(k,l));
-
                     }
                 }
             }
@@ -178,7 +161,6 @@ public class SudokuGUI extends Frame implements ActionListener{
             row[j] = this.getMatrix()[i][j];
         }
         return row;
-
     }
 
     public Integer[] getMatCol(int j){
@@ -213,7 +195,6 @@ public class SudokuGUI extends Frame implements ActionListener{
             }
         }
         return box;
-        
     }
 
     public boolean validBox(Integer[][] box){
@@ -240,13 +221,11 @@ public class SudokuGUI extends Frame implements ActionListener{
                 valid = false;
             }
         }
-
         for(int j = 0; j< 9; j++){
             if(!validSeq(getMatCol(j))){
                 valid = false;
             }
         }
-
         for(int k = 0; k<3;k++){
             for(int l=0; l<3; l++){
                 if(!validBox(getBox(k,l))){
@@ -254,14 +233,10 @@ public class SudokuGUI extends Frame implements ActionListener{
                 }
             }
         }
-
         return valid;
     }
 
    public static void main(String[] args) {
-      // Invoke the constructor (to setup the GUI) by allocating an instance
-      new SudokuGUI();
-      
-
+      new SudokuGUI();      
    }
 }
