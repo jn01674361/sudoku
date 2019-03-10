@@ -1,12 +1,15 @@
 package com.sudoku;
 
-
 import java.awt.*;  
 import java.awt.event.*;  
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class SudokuPart{
+
+    /**
+     * This class represents a 3 by 3 box on the sudoku board with a 2d array of JPanels.
+     */
 
     private JPanel part;
     private JPanel[][] partArray;
@@ -16,6 +19,13 @@ public class SudokuPart{
         return this.part;
     }
 
+    /**
+    * Get the text from one of the fields in the box.
+    *
+    * @param  i   row number
+    * @param  j   column number
+    * @return text  string holding the text in the JPanel.
+    */
     public String getText(int i, int j){
         JPanel panel = getPart(i, j);
         Component[] components = panel.getComponents();
@@ -32,6 +42,13 @@ public class SudokuPart{
         return text;
     }
 
+    /**
+    * Add text to one of the fields.
+    *
+    * @param  i   row number
+    * @param  j   column number
+    * @param text  text to add
+    */
     public void setText(int i, int j, String text){
         JPanel panel = getPart(i, j);
         Component[] components = panel.getComponents();
@@ -48,6 +65,13 @@ public class SudokuPart{
         addToArray(panel, i, j);
     }
 
+    /**
+    * Lock a textfield with some text so that it cannot be edited by the user.
+    *
+    * @param  i   row number
+    * @param  j   column number
+    * @return text  text to add
+    */
     public void nonEditable(int i, int j, String text){
         JPanel panel = getPart(i, j);
         Component[] components = panel.getComponents();
@@ -84,6 +108,12 @@ public class SudokuPart{
     public JPanel getPart(int i, int j){
         return this.partArray[i][j];
     }
+
+    /**
+    * Get the values of the fields as an ArrayList.
+    *
+    * @return ints  ArrayList representation of the box.
+    */
     public ArrayList<Integer> partAsIntList(){
         ArrayList<Integer> ints = new ArrayList<Integer>();
         for(int i=0; i< 3; i++){
@@ -99,6 +129,10 @@ public class SudokuPart{
         return ints;
 
     }
+
+    /**
+    * Generate a 2d array with JPanels holding JTextPanes to represent a 3 by 3 box.
+    */
     public SudokuPart(){
         initPartArray();
         setPart(new JPanel());

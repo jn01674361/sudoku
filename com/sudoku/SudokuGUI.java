@@ -8,6 +8,11 @@ import java.util.HashSet;
 import java.util.Arrays;
 
 public class SudokuGUI extends Frame implements ActionListener{
+
+    /**
+     * This class represents a Sudoku board GUI as a 2d array of SudokuParts.
+     */
+
    public TextField tf = new TextField();
    public JButton load = new JButton("New puzzle"), submit = new JButton("Submit"), exit = new JButton("Exit");
    private boolean validFormat = true;
@@ -15,6 +20,12 @@ public class SudokuGUI extends Frame implements ActionListener{
     private SudokuPart[][] panelArr = new SudokuPart[3][3];
     private Integer[][] testMat;
 
+    public void setTestMat(Integer[][] mat){
+        this.testMat = mat;
+    }
+    public Integer[][] testMat(){
+        return this.testMat;
+    }
     public void initMainpanel(){
         this.mainpanel = new JPanel();
     }
@@ -54,6 +65,12 @@ public class SudokuGUI extends Frame implements ActionListener{
         return part;
     }
 
+    /**
+    * Load a Sudoku board from a SudokuLoader object.
+    *
+    * @param  loader   the loader to use 
+    * @param  show      whether the board should be displayed or not.
+    */
     public void loadBoard(SudokuLoader loader, boolean show){
         loader.loadSudokuFromTxt();
         loadPanelsFromMatrix(loader.sudokuMatrix());
@@ -64,6 +81,11 @@ public class SudokuGUI extends Frame implements ActionListener{
             mainpanel.setBackground(Color.BLACK);
         }
     }
+    /**
+    * Paint the Sudoku board along with buttons.
+    *
+    * @param  test   if true the SudokuGUI is just initiated without anything painted.
+    */
    public SudokuGUI(boolean test) { 
         if(!test){
             SudokuLoader loader = new SudokuLoader();
@@ -95,14 +117,13 @@ public class SudokuGUI extends Frame implements ActionListener{
             setSize(1200,1000);  
             setVisible(true); 
         }
-        else{
-
-
-
-        }
- 
     }
 
+    /**
+    * Perform actions depending on which button is clicked.
+    *
+    * @param  e   the button that is clicked.
+    */
     public void actionPerformed(ActionEvent e){  
         if("load".equals(e.getActionCommand())){
             remove(mainpanel);
@@ -136,6 +157,11 @@ public class SudokuGUI extends Frame implements ActionListener{
             System.exit(0);
         }
     }
+    /**
+    * Get the sudoku board in matrix form.
+    *
+    * @return a 9x9 2d array representing the current state of the sudoku board.
+    */
     public Integer[][] getMatrix(){
         valid();
         Integer[][]mat = new Integer[9][9];
@@ -165,12 +191,7 @@ public class SudokuGUI extends Frame implements ActionListener{
         }
         return mat;
     }
-    public void setTestMat(Integer[][] mat){
-        this.testMat = mat;
-    }
-    public Integer[][] testMat(){
-        return this.testMat;
-    }
+
 
     public void loadPanelsFromMatrix(Integer[][] mat){
         initMainpanel();
@@ -197,7 +218,6 @@ public class SudokuGUI extends Frame implements ActionListener{
 
     public Integer[] getMatRow(int i, boolean test){
         Integer[] row = new Integer[9];
-
         Integer[][] mat;
         if(test){
             mat = this.testMat();
@@ -230,6 +250,12 @@ public class SudokuGUI extends Frame implements ActionListener{
 
     }
 
+    /**
+    * Check if an integer array contains all number from 1 to 9 exactly once.
+    *
+    * @param  seq   array to check
+    * @return valid  true if the array does contain 1-9, false otherwise.
+    */
     public boolean validSeq(Integer[] seq){
         boolean valid = true;
         Set<Integer> mySet = new HashSet<Integer>(Arrays.asList(seq));

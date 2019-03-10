@@ -4,7 +4,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Tests {
+
+    /**
+     * This class is used to run desired tests on an example instantiation of the SudokuGUI class.
+     */
+
+    /**
+    * Check that the sudoku validator works correctly
+    *
+    * @param sudoku     SudokuGUI object for testing.
+    * @return       true if the tests passed, false otherwise.
+    */
     public static boolean validatesCorrectly(SudokuGUI sudoku) {
+
         SudokuLoader loader = new SudokuLoader();
 
         File puzzleFolder = new File("txt/puzzles");
@@ -43,8 +55,5 @@ public class Tests {
             
         }
         return(true);
-
-        
-
     }
 }

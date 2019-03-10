@@ -1,6 +1,5 @@
 package com.sudoku;
 
-
 import java.util.Random;
 import java.io.File;
 import java.io.BufferedReader;
@@ -9,6 +8,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SudokuLoader{
+
+    /**
+     * This class is used to load sudoku puzzles from txt files.
+     */
+
     private Integer[][] sudokuMatrix;
     private String pathToSudoku = "";
     private final String puzzleFolder = "txt/puzzles";
@@ -45,7 +49,6 @@ public class SudokuLoader{
                     char c = line.charAt(k);
                     if(c != ' '){
                         
-                        // System.err.println(String.valueOf(c));
                         mat[i][j]=Integer.parseInt(String.valueOf(c));
                         j++;
                     }
