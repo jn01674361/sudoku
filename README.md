@@ -1,5 +1,8 @@
 # sudoku
 
+![alt text](https://raw.githubusercontent.com/jn01674361/sudoku/master/board.jpg)
+
+
 ## Build from source
 
 1. git clone ...
@@ -14,3 +17,5 @@
 1. git clone ...
 2. cd sudoku/build
 3. java -jar sudoku.jar -t
+
+
