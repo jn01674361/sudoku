@@ -1,6 +1,6 @@
 # sudoku
 
-![alt text](https://raw.githubusercontent.com/jn01674361/sudoku/master/board.jpg)
+![alt text](https://raw.githubusercontent.com/jn01674361/sudoku/master/board.png)
 
 
 ## Build from source
