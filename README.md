@@ -1,4 +1,4 @@
-# sudoku
+# Sudoku
 
 Simple Sudoku game. Rules: http://www.counton.org/sudoku/rules-of-sudoku.php. 
 
