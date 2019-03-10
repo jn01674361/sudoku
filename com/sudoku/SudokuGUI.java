@@ -13,6 +13,7 @@ public class SudokuGUI extends Frame implements ActionListener{
    private boolean validFormat = true;
     private JPanel mainpanel;
     private SudokuPart[][] panelArr = new SudokuPart[3][3];
+    private Integer[][] testMat;
 
     public void initMainpanel(){
         this.mainpanel = new JPanel();
@@ -53,50 +54,60 @@ public class SudokuGUI extends Frame implements ActionListener{
         return part;
     }
 
-    public void loadBoard(){
-        SudokuLoader loader = new SudokuLoader();
+    public void loadBoard(SudokuLoader loader, boolean show){
         loader.loadSudokuFromTxt();
         loadPanelsFromMatrix(loader.sudokuMatrix());
-        mainpanel.setLayout(new GridLayout(3, 3, 10, 10));    
-        mainpanel.setSize(1000,1000);  
-        mainpanel.setVisible(true);  
-        mainpanel.setBackground(Color.BLACK);
+        if(show){
+            mainpanel.setLayout(new GridLayout(3, 3, 10, 10));    
+            mainpanel.setSize(1000,1000);  
+            mainpanel.setVisible(true);  
+            mainpanel.setBackground(Color.BLACK);
+        }
     }
-   public SudokuGUI() { 
+   public SudokuGUI(boolean test) { 
+        if(!test){
+            SudokuLoader loader = new SudokuLoader();
+            loadBoard(loader, true);
 
-        loadBoard();
-
-        JPanel btnPanel = new JPanel();
+            JPanel btnPanel = new JPanel();
+        
+            this.load.setActionCommand("load");
+            this.submit.setActionCommand("submit");
+            this.exit.setActionCommand("exit");                
+            
+            this.load.addActionListener(this);
+            this.submit.addActionListener(this);
+            this.exit.addActionListener(this);
     
-        this.load.setActionCommand("load");
-        this.submit.setActionCommand("submit");
-        this.exit.setActionCommand("exit");                
-        
-        this.load.addActionListener(this);
-        this.submit.addActionListener(this);
-        this.exit.addActionListener(this);
+            btnPanel.add(this.load);
+            btnPanel.add(this.submit);
+            btnPanel.add(this.exit);
+            
+            btnPanel.setLayout(new GridLayout(1,3));
+            btnPanel.setSize(1000,200);
+            btnPanel.setVisible(true);
+            btnPanel.setBackground(Color.BLACK);
+            
+            setLayout(new BorderLayout());
+    
+            add(btnPanel, BorderLayout.PAGE_END);
+            add(mainpanel, BorderLayout.CENTER);
+            setSize(1200,1000);  
+            setVisible(true); 
+        }
+        else{
 
-        btnPanel.add(this.load);
-        btnPanel.add(this.submit);
-        btnPanel.add(this.exit);
-        
-        btnPanel.setLayout(new GridLayout(1,3));
-        btnPanel.setSize(1000,200);
-        btnPanel.setVisible(true);
-        btnPanel.setBackground(Color.BLACK);
-        
-        setLayout(new BorderLayout());
 
-        add(btnPanel, BorderLayout.PAGE_END);
-        add(mainpanel, BorderLayout.CENTER);
-        setSize(1200,1000);  
-        setVisible(true);  
+
+        }
+ 
     }
 
     public void actionPerformed(ActionEvent e){  
         if("load".equals(e.getActionCommand())){
             remove(mainpanel);
-            loadBoard();
+            SudokuLoader loader = new SudokuLoader();
+            loadBoard(loader, true);
 
             add(mainpanel, BorderLayout.CENTER);
             revalidate();
@@ -109,7 +120,7 @@ public class SudokuGUI extends Frame implements ActionListener{
                 result = "Found invalid characters!";
             }
             else{
-                boolean val = validAll();
+                boolean val = validAll(false);
                 
                 if(val){
                     result = "Good job! Click \'New Puzzle\' for another Sudoku challenge!";
@@ -154,6 +165,12 @@ public class SudokuGUI extends Frame implements ActionListener{
         }
         return mat;
     }
+    public void setTestMat(Integer[][] mat){
+        this.testMat = mat;
+    }
+    public Integer[][] testMat(){
+        return this.testMat;
+    }
 
     public void loadPanelsFromMatrix(Integer[][] mat){
         initMainpanel();
@@ -178,20 +195,36 @@ public class SudokuGUI extends Frame implements ActionListener{
         }
     }
 
-    public Integer[] getMatRow(int i){
+    public Integer[] getMatRow(int i, boolean test){
         Integer[] row = new Integer[9];
 
+        Integer[][] mat;
+        if(test){
+            mat = this.testMat();
+        }
+        else{
+            mat = this.getMatrix();
+        }
+
         for(int j =0; j<row.length;j++){
-            row[j] = this.getMatrix()[i][j];
+            row[j] = mat[i][j];
         }
         return row;
     }
 
-    public Integer[] getMatCol(int j){
+    public Integer[] getMatCol(int j, boolean test){
         Integer[] col = new Integer[9];
 
+        Integer[][] mat;
+        if(test){
+            mat = this.testMat();
+        }
+        else{
+            mat = this.getMatrix();
+        }
+
         for(int i =0; i<col.length;i++){
-            col[i] = this.getMatrix()[i][j];
+            col[i] = mat[i][j];
         }
         return col;
 
@@ -208,14 +241,23 @@ public class SudokuGUI extends Frame implements ActionListener{
         return valid;
     }
 
-    public Integer[][] getBox(int i, int j){
+    public Integer[][] getBox(int i, int j, boolean test){
         // 00 01 02
         // 10 11 12
         // 20 21 22
+
+        Integer[][] mat;
+        if(test){
+            mat = this.testMat();
+        }
+        else{
+            mat = this.getMatrix();
+        }
+
         Integer[][] box = new Integer[3][3];
         for(int k =0; k< 3; k++){
             for(int l=0; l< 3; l++){
-                box[k][l] = getMatrix()[k+3*i][l+3*j];
+                box[k][l] = mat[k+3*i][l+3*j];
             }
         }
         return box;
@@ -241,22 +283,22 @@ public class SudokuGUI extends Frame implements ActionListener{
         return this.validFormat;
     }
 
-    public boolean validAll(){
+    public boolean validAll(boolean test){
         boolean valid = true;
 
         for(int i = 0; i< 9; i++){
-            if(!validSeq(getMatRow(i))){
+            if(!validSeq(getMatRow(i, test))){
                 valid = false;
             }
         }
         for(int j = 0; j< 9; j++){
-            if(!validSeq(getMatCol(j))){
+            if(!validSeq(getMatCol(j, test))){
                 valid = false;
             }
         }
         for(int k = 0; k<3;k++){
             for(int l=0; l<3; l++){
-                if(!validBox(getBox(k,l))){
+                if(!validBox(getBox(k,l, test))){
                     valid = false;
                 }
             }
@@ -265,6 +307,26 @@ public class SudokuGUI extends Frame implements ActionListener{
     }
 
    public static void main(String[] args) {
-      new SudokuGUI();      
+       if(args.length>0){
+        // run wih tests
+        if(!args[0].equals("-t")){
+            System.err.println("Add flag \'-t\' to run with tests. TO run without test, leave out cmd arguments.");
+            System.exit(0);
+        }
+        else{
+            if(Tests.validatesCorrectly(new SudokuGUI(true))){
+                System.err.println("All tests passed!");
+                new SudokuGUI(false);
+            }
+            else{
+                System.err.println("Tests did not pass!");
+                System.exit(0);
+            }
+        }
+       }
+       else{
+        // run without tests
+        new SudokuGUI(false); 
+       }     
    }
 }

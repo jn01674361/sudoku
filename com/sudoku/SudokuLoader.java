@@ -44,8 +44,8 @@ public class SudokuLoader{
 
                     char c = line.charAt(k);
                     if(c != ' '){
-                        System.out.print(i);
-                        System.out.print(j);
+                        
+                        // System.err.println(String.valueOf(c));
                         mat[i][j]=Integer.parseInt(String.valueOf(c));
                         j++;
                     }
