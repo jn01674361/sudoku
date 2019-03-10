@@ -10,7 +10,7 @@ Simple Sudoku game. Rules: http://www.counton.org/sudoku/rules-of-sudoku.php.
 ## Build from source
 
 1. git clone https://github.com/jn01674361/sudoku.git
-2. cd sudoku/com/sudoku
+2. cd sudoku/com/sudoku/
 3. java -jar build/sudoku.jar -t
 4. cd build
 5. jar -cvfe sudoku.jar com.sudoku.SudokuGUI *
@@ -19,7 +19,7 @@ Simple Sudoku game. Rules: http://www.counton.org/sudoku/rules-of-sudoku.php.
 ## Run prebuilt jar file
 
 1. git clone https://github.com/jn01674361/sudoku.git
-2. cd sudoku/build
+2. cd sudoku/com/sudoku/build/
 3. java -jar sudoku.jar -t
 
 ## Usage
