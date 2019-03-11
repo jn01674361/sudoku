@@ -10,11 +10,9 @@ Simple Sudoku game. Rules: http://www.counton.org/sudoku/rules-of-sudoku.php.
 ## Build from source
 
 1. git clone https://github.com/jn01674361/sudoku.git
-2. cd sudoku/com/sudoku/
-3. java -jar build/sudoku.jar -t
-4. cd build
-5. jar -cvfe sudoku.jar com.sudoku.SudokuGUI *
-6. java -jar sudoku.jar -t
+2. cd sudoku/com/sudoku/build
+3. jar -cvfe sudoku.jar com.sudoku.SudokuGUI *
+4. java -jar sudoku.jar -t
 
 ## Run prebuilt jar file
 
